@@ -1,8 +1,8 @@
-## Animal QTL Paper Classification
+### QTL Classification
 
 Ensemble model combining **TF-IDF + SVM** and **BioBERT** to classify research papers as *relevant* or *non-relevant* for the Animal QTL database.
 
-## Requirements
+### Requirements
 - Python 3.8 or higher  
 - Libraries: `pandas`, `numpy`, `scikit-learn`, `transformers`, `datasets`, `torch`, `nltk`
 

@@ -1,4 +1,4 @@
-# Animal QTL Paper Classification
+## Animal QTL Paper Classification
 
 Ensemble model combining **TF-IDF + SVM** and **BioBERT** to classify research papers as *relevant* or *non-relevant* for the Animal QTL database.
 

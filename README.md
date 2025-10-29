@@ -1,2 +1,4 @@
-# NLP-Project-2
-This project classifies papers relevant to Animal QTLdb using TF-IDF + SVM and BioBERT models with an F1-weighted ensemble for final Kaggle submission.
+# Animal QTL Paper Classification
+
+This project builds an ensemble NLP model combining **TF-IDF + Linear SVM** and **BioBERT** to classify research papers as *relevant* or *non-relevant* for the Animal QTL database. The training data (`QTL_text.json`) includes Title, Abstract, Category, and PMID fields, while the test data (`QTL_test_unlabeled.tsv`) contains Title, Abstract, and PMID. Text is cleaned by removing URLs, emails, punctuation, and stopwords (case preserved for BioBERT), and the dataset is balanced by downsampling the majority class. The TF-IDF + LinearSVC model uses grid search for hyperparameter tuning and is calibrated with a sigmoid function to output probabilities. The BioBERT model (`dmis-lab/biobert-base-cased-v1.1`) is fine-tuned using Hugging Face Trainer with early stopping and tokenization up to 256 tokens. Ensemble predictions are computed as a weighted average of model probabilities based on validation F1-scores: `P_ensemble = w_svm * P_svm + w_bert * P_bert`. Final predictions are thresholded at 0.5 and saved as `NLP_Submission_final.csv` with columns `PMID` and `Label`.
+

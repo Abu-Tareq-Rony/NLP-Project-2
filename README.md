@@ -1,4 +1,23 @@
 # Animal QTL Paper Classification
 
-This project builds an ensemble NLP model combining **TF-IDF + Linear SVM** and **BioBERT** to classify research papers as *relevant* or *non-relevant* for the Animal QTL database. The training data (`QTL_text.json`) includes Title, Abstract, Category, and PMID fields, while the test data (`QTL_test_unlabeled.tsv`) contains Title, Abstract, and PMID. Text is cleaned by removing URLs, emails, punctuation, and stopwords (case preserved for BioBERT), and the dataset is balanced by downsampling the majority class. The TF-IDF + LinearSVC model uses grid search for hyperparameter tuning and is calibrated with a sigmoid function to output probabilities. The BioBERT model (`dmis-lab/biobert-base-cased-v1.1`) is fine-tuned using Hugging Face Trainer with early stopping and tokenization up to 256 tokens. Ensemble predictions are computed as a weighted average of model probabilities based on validation F1-scores: `P_ensemble = w_svm * P_svm + w_bert * P_bert`. Final predictions are thresholded at 0.5 and saved as `NLP_Submission_final.csv` with columns `PMID` and `Label`.
+This project builds an ensemble NLP model combining **TF-IDF + Linear SVM** and **BioBERT** to classify research papers as *relevant* or *non-relevant* for the Animal QTL database.
 
+## Data
+- `QTL_text.json`: Training data (Title, Abstract, Category, PMID)
+- `QTL_test_unlabeled.tsv`: Test data (Title, Abstract, PMID)
+
+## Preprocessing
+- Remove URLs, emails, and punctuation  
+- Remove stopwords (case preserved for BioBERT)  
+- Balance dataset by downsampling majority class
+
+## Models
+1. **TF-IDF + LinearSVC**  
+   - Uses grid search for optimal hyperparameters  
+   - Calibrated with sigmoid to produce probabilities  
+2. **BioBERT (dmis-lab/biobert-base-cased-v1.1)**  
+   - Tokenized (max length 256)  
+   - Fine-tuned using Hugging Face Trainer with early stopping  
+
+## Ensemble
+Validation F1-scores determine model weights:
